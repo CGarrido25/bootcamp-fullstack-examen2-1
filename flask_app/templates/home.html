@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+    />
+</head>
+<body class="container mt-5">
+<div class="container mb-3">
+    <div class="d-flex align-items-center">
+        <div class="d-flex justify-content-between w-100">
+            <div>
+                <h1 class="mb-0">Bienvenid@ {{nombre}}</h1>
+            </div>
+            <div>
+                <a href="/nueva" class="me-3">Nueva peli</a>
+                <a href="/cerrar_sesion">Cerrar sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3 mt-3"><h3>Todas las peliculas</h3></div>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <tbody>
+            {% for pelicula in peliculas %}
+            <tr>
+                <td>
+                    {{pelicula.nombre}}
+                </td>
+                <td>
+                    {{pelicula.fecha}}
+                </td>
+                <td>
+                    {{pelicula.director}}
+                </td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <a href="/ver/{{pelicula.id}}" class="btn btn-primary"
+                            >ver</a
+                            >
+                            {% if id == pelicula.usuario.id %}
+                            <a class="btn btn-info" href="/editar/{{pelicula.id}}"
+                            >editar</a
+                            >
+                            <a class="btn btn-danger" href="/borrar/{{pelicula.id}}"
+                            >borrar</a
+                            >
+                            {%endif %}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>
